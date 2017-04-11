@@ -1,5 +1,6 @@
 package com.leo.android.criminalintent;
 
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ public class Crime {
     public Crime(){
         mId = UUID.randomUUID();
         mDate = new Date();
+
     }
 
     public Date getDate() {
