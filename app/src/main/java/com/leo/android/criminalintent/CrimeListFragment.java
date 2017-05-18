@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Created by leonidtiskevic on 15.04.17.
  */
@@ -17,6 +19,7 @@ import android.widget.TextView;
 public class CrimeListFragment extends Fragment {
 
     private RecyclerView mCrimeRecyclerView;
+    private CrimeAdapter mAdapter;
 
     @Nullable
     @Override
@@ -28,13 +31,51 @@ public class CrimeListFragment extends Fragment {
         return view;
     }
 
-    private class CrimeHolder extends RecyclerView.ViewHolder{
+    private void updateUi(){
+
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
+        List<Crime> crimes = crimeLab.getCrimes();
+        mAdapter = new CrimeAdapter(crimes);
+        mCrimeRecyclerView.setAdapter(mAdapter);
+
+    }
+
+    private class CrimeHolder extends RecyclerView.ViewHolder {
 
         private TextView mTitleTextView;
 
         public CrimeHolder(View itemView) {
             super(itemView);
             mTitleTextView = (TextView) itemView;
+        }
+    }
+
+    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{
+
+        private List<Crime> mCrimes;
+
+        public CrimeAdapter(List<Crime> crimes){
+            mCrimes = crimes;
+
+        }
+
+        @Override
+        public CrimeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            View view = layoutInflater.inflate(R.layout.support_simple_spinner_dropdown_item, parent, false);
+            return new CrimeHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(CrimeHolder holder, int position) {
+            Crime crime = mCrimes.get(position);
+            holder.mTitleTextView.setText(crime.getTitle());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return mCrimes.size();
         }
     }
 
