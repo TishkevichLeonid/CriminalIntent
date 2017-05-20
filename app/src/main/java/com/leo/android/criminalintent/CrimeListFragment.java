@@ -28,11 +28,12 @@ public class CrimeListFragment extends Fragment {
 
         mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        updateUi();
+
         return view;
     }
 
     private void updateUi(){
-
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
         mAdapter = new CrimeAdapter(crimes);
