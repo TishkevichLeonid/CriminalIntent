@@ -19,23 +19,23 @@ import java.util.UUID;
  */
 
 public class CrimePagerActivity extends FragmentActivity {
-    public static final String EXTRA_CRINE_ID = "com.leo.android.criminalintent.crime_id";
+    public static final String EXTRA_CRIME_ID = "com.leo.android.criminalintent.crime_id";
 
     private ViewPager mViewPager;
     private List<Crime> mCrimes;
 
-    public static Intent newInstance(Context packageContext, UUID crimeId){
+    public static Intent newIntent(Context packageContext, UUID crimeId){
         Intent intent = new Intent(packageContext, CrimePagerActivity.class);
-        intent.putExtra(EXTRA_CRINE_ID, crimeId);
+        intent.putExtra(EXTRA_CRIME_ID, crimeId);
         return intent;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crime_pager);
 
-        UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRINE_ID);
+        UUID crimeId = (UUID) getIntent().getSerializableExtra(EXTRA_CRIME_ID);
 
         mViewPager = (ViewPager) findViewById(R.id.activity_crime_pager_view_pager);
 
