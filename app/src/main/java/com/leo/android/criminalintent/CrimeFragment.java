@@ -2,7 +2,9 @@ package com.leo.android.criminalintent;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
@@ -16,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -26,7 +29,9 @@ import java.util.UUID;
 public class CrimeFragment extends Fragment {
     public static final String ARG_CRIME_ID = "crime_id";
     public static final String DIALOG_DATE = "DialogDate";
+    public static final String DIALOG_TIME = "Dialogtime";
     public static final int REQUEST_DATE = 0;
+    public static final int REQUEST_TIME = 0;
 
     private Crime mCrime;
     private EditText mTitleField;
@@ -86,8 +91,18 @@ public class CrimeFragment extends Fragment {
             }
         });
 
+
         mTimeButton = (Button) v.findViewById(R.id.crime_time);
-        mTimeButton.setOnClickListener(null);
+        mTimeButton.setText("Время преступления");
+        mTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager manager = getFragmentManager();
+                TimePickerFragment dialog = TimePickerFragment.newInstance(mCrime.getDate());
+                dialog.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
+                dialog.show(manager, DIALOG_TIME);
+            }
+        });
 
         mSolvedCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setChecked(mCrime.isSolved());
