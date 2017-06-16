@@ -6,4 +6,8 @@
     <string name="crime_solved_label">Решено?</string>
     <string name="date_picker_title">Дата преступления:</string>
     <string name="time_picker_title">Время преступления:</string>
+    <string name="new_crime">Новое преступление</string>
+    <string name="show_subtitle">Показать заголовок</string>
+    <string name="hide_subtitle">Скрыть заголовок</string>
+    <string name="subtitle_format">%1$s crimes</string>
 </resources>
