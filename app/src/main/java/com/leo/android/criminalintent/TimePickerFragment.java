@@ -39,50 +39,49 @@ public class TimePickerFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Date date = (Date) getArguments().getSerializable(ARG_TIME);
+        final Date time = (Date) getArguments().getSerializable(ARG_TIME);
+
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        final int hours = calendar.get(Calendar.HOUR_OF_DAY);
+        calendar.setTime(time);
+        int hours = calendar.get(Calendar.HOUR_OF_DAY);
         int minutes = calendar.get(Calendar.MINUTE);
 
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_time, null);
 
         mTimePicker = (TimePicker) v.findViewById(R.id.dialog_time_time_picker);
         mTimePicker.setIs24HourView(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mTimePicker.setHour(hours);
-            mTimePicker.setMinute(minutes);
-        }
+        mTimePicker.setHour(hours);
+        mTimePicker.setMinute(minutes);
 
-        /*
-        new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        int hour = mTimePicker.getHour();
-                        int minute = mTimePicker.getMinute();
-                        Date date = new Date();
-                        date.setHours(hour);
-                        date.setMinutes(minute);
-                        sandResultTime(RESULT_OK, date);
-                    }
-                }
-         */
 
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
                 .setTitle(R.string.time_picker_title)
-                .setPositiveButton(android.R.string.ok, null)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        int hour = mTimePicker.getHour();
+                        int minute = mTimePicker.getMinute();
+
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(time);
+                        calendar.set(Calendar.HOUR_OF_DAY, hour);
+                        calendar.set(Calendar.MINUTE, minute);
+                        Date time = calendar.getTime();
+                        sandResultTime(RESULT_OK, time);
+                    }
+                })
                 .create();
     }
 
-    private void sandResultTime(int RequestCode, Date date){
+    private void sandResultTime(int resultCode, Date time){
         if (getTargetFragment() == null)
             return;
 
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_TIME, date);
+        intent.putExtra(EXTRA_TIME, time);
 
-        getTargetFragment().onActivityResult(getTargetRequestCode(), RequestCode, intent);
+        getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
 
 }
