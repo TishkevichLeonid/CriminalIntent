@@ -132,9 +132,10 @@ public class CrimeListFragment extends Fragment {
         public void bindCrime(Crime crime){
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
-            DateFormat dateFormat = new SimpleDateFormat(CrimeFragment.DATE_FORMAT);
+           // DateFormat dateFormat = new SimpleDateFormat(CrimeFragment.DATE_FORMAT);
             DateFormat timeFormat = new SimpleDateFormat(CrimeFragment.TIME_FORMAT);
-            mDataTextView.setText(dateFormat.format(mCrime.getDate()) + " " + timeFormat.format(mCrime.getTime()));
+           // mDataTextView.setText(dateFormat.format(mCrime.getDate()) + " " + timeFormat.format(mCrime.getTime()));
+            mDataTextView.setText(mCrime.getDate().toString() + "Time: " + timeFormat.format(mCrime.getTime()));
             mSolvedCheckBox.setChecked(mCrime.isSolved());
         }
 

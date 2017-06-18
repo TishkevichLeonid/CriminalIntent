@@ -25,8 +25,8 @@ import java.util.UUID;
  */
 
 public class CrimeFragment extends Fragment {
-    public static final String DATE_FORMAT = "MMM M, EEEE, HH:mm";
-    public static final String TIME_FORMAT = "hh:mm a z";
+    public static final String DATE_FORMAT = "MMM M, EEEE";
+    public static final String TIME_FORMAT = "HH:mm";
 
     public static final String ARG_CRIME_ID = "crime_id";
     public static final String DIALOG_DATE = "DialogDate";
@@ -137,9 +137,11 @@ public class CrimeFragment extends Fragment {
     }
 
     private void updateDate() {
+        mDateButton.setText(mCrime.getDate().toString());
        // mDateButton.setText(DateFormat.format("MMM M, EEEE, HH:mm", mCrime.getDate()));
-        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-        mDateButton.setText(dateFormat.format(mCrime.getDate()));
+       // mDateButton.setText(android.text.format.DateFormat.format("MMMM MM, EEEE", mCrime.getDate()));
+       // DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+       // mDateButton.setText(dateFormat.format(mCrime.getDate()));
     }
 
     private void updateTime(){
