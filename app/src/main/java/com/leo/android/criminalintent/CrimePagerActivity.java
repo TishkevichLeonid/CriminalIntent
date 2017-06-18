@@ -64,4 +64,9 @@ public class CrimePagerActivity extends AppCompatActivity {
 
     }
 
+    @Nullable
+    @Override
+    public Intent getParentActivityIntent() {
+        return super.getParentActivityIntent();
+    }
 }
