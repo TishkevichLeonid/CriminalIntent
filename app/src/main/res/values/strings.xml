@@ -11,6 +11,8 @@
     <string name="hide_subtitle">Скрыть заголовок</string>
     <string name="delete_crime">Удалить преступление</string>
     <string name="subtitle_format">%1$s crimes</string>
+    <string name="new_crime_invisible">Список пуст, добавьте новое преступление</string>
+    <string name="new_crime_btn_list_empty">Новое преступление</string>
     
     <plurals name="subtitle_plural">
         <item quantity="one">%1$s crime</item>

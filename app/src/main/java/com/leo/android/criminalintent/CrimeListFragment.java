@@ -13,7 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
+    private LinearLayout mLinearLayoutNewCrime;
+    private Button mButtonNewCrime;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +50,9 @@ public class CrimeListFragment extends Fragment {
         mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        mLinearLayoutNewCrime = (LinearLayout) view.findViewById(R.id.liniar_layout_for_btn_and_textview);
+        mButtonNewCrime = (Button) view.findViewById(R.id.button_add_list_empty);
+
         if (savedInstanceState != null){
             mSubtitleVisible= savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
         }
@@ -58,6 +65,19 @@ public class CrimeListFragment extends Fragment {
     private void updateUi(){
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
+
+        if (crimes.size() > 0){
+            mLinearLayoutNewCrime.setVisibility(View.GONE);
+        }
+        else {
+            mLinearLayoutNewCrime.setVisibility(View.VISIBLE);
+            mButtonNewCrime.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    createNewCrime();
+                }
+            });
+        }
 
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
@@ -72,6 +92,13 @@ public class CrimeListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUi();
+    }
+
+    public void createNewCrime(){
+        Crime crime = new Crime();
+        CrimeLab.get(getActivity()).addCrime(crime);
+        Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
+        startActivity(intent);
     }
 
     @Override
