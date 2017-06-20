@@ -9,5 +9,6 @@
     <string name="new_crime">Новое преступление</string>
     <string name="show_subtitle">Показать заголовок</string>
     <string name="hide_subtitle">Скрыть заголовок</string>
+    <string name="delete_crime">Удалить преступление</string>
     <string name="subtitle_format">%1$s crimes</string>
 </resources>

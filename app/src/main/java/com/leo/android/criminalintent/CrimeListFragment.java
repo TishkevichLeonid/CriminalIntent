@@ -58,11 +58,13 @@ public class CrimeListFragment extends Fragment {
     private void updateUi(){
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
+
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         }
         else mAdapter.notifyDataSetChanged();
+
         updateSubtitle();
     }
 
