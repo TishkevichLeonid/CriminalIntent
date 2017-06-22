@@ -13,6 +13,8 @@
     <string name="subtitle_format">%1$s crimes</string>
     <string name="new_crime_invisible">Список пуст, добавьте новое преступление</string>
     <string name="new_crime_btn_list_empty">Новое преступление</string>
+    <string name="crime_suspect_text">Выбрать подозреваемого</string>
+    <string name="crime_report_text">Отправить отчет</string>
     
     <plurals name="subtitle_plural">
         <item quantity="one">%1$s crime</item>
