@@ -2,7 +2,10 @@ package com.leo.android.criminalintent;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
@@ -18,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.net.URI;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,12 +40,14 @@ public class CrimeFragment extends Fragment {
     public static final String DIALOG_TIME = "Dialogtime";
     public static final int REQUEST_DATE = 0;
     public static final int REQUEST_TIME = 1;
+    public static final int REQUEST_CONTACN = 2;
 
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
     private Button mTimeButton;
     private Button mReportButton;
+    private Button mSuspectButton;
     private CheckBox mSolvedCheckBox;
 
     @Override
@@ -136,9 +142,24 @@ public class CrimeFragment extends Fragment {
                 i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_TEXT, getReport());
                 i.putExtra(Intent.EXTRA_SUBJECT, R.string.crime_report_subject);
+                i = Intent.createChooser(i, getString(R.string.send_report));
                 startActivity(i);
             }
         });
+
+        final Intent pickContact = new Intent(Intent.ACTION_PICK,
+                ContactsContract.Contacts.CONTENT_URI);
+        mSuspectButton = (Button) v.findViewById(R.id.crime_suspect);
+        mSuspectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(pickContact, REQUEST_CONTACN);
+            }
+        });
+
+        if (mCrime.getSuspect() != null){
+            mSuspectButton.setText(getString(R.string.crime_report_suspect));
+        }
 
         return v;
     }
@@ -168,17 +189,41 @@ public class CrimeFragment extends Fragment {
         if (resultCode != Activity.RESULT_OK){
             return;
         }
-        if (requestCode == REQUEST_DATE){
-            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            mCrime.setDate(date);
-            updateDate();
-        }
 
         if (requestCode == REQUEST_TIME){
             Date time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
             mCrime.setTime(time);
             updateTime();
         }
+
+        if (requestCode == REQUEST_DATE){
+            Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            mCrime.setDate(date);
+            updateDate();
+        } else if (requestCode == REQUEST_CONTACN && data != null){
+            Uri contactUri = data.getData();
+
+            //Определение полей, значения которых должны быть возвращены запросом
+            String[] queryFields = new String[] {ContactsContract.Contacts.DISPLAY_NAME};
+
+            //Выполнение запроса - contactUri выполняет функцию условия where
+            Cursor c = getActivity().getContentResolver().query(contactUri, queryFields,
+                    null, null, null);
+            //проверка получения результатов
+            try {
+                if (c.getCount() == 0){
+                    return;
+                }
+                //извлечение первого столбца данных - имени подозреваемого
+                c.moveToFirst();
+                String suspect = c.getString(0);
+                mCrime.setSuspect(suspect);
+                mSuspectButton.setText(suspect);
+            } finally {
+                c.close();
+            }
+        }
+
     }
 
     private void updateDate() {
