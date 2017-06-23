@@ -91,7 +91,7 @@ public class CrimeLab {
         mDatabase.update(CrimeTable.NAME, values, CrimeTable.Cols.UUID + " = ?",
                 new String[] {uuidString});
     }
-
+    //записываем данные в базу
     private static ContentValues getContentValues(Crime crime){
         ContentValues values = new ContentValues();
         values.put(CrimeTable.Cols.UUID, crime.getId().toString());
@@ -99,6 +99,7 @@ public class CrimeLab {
         values.put(CrimeTable.Cols.DATE, crime.getDate().getTime());
         values.put(CrimeTable.Cols.TIME, crime.getTime().getTime());
         values.put(CrimeTable.Cols.SOLVED, crime.isSolved() ? 1 : 0);
+        values.put(CrimeTable.Cols.SUSPECT, crime.getSuspect());
 
         return values;
     }
