@@ -41,6 +41,7 @@ public class CrimeFragment extends Fragment {
     private EditText mTitleField;
     private Button mDateButton;
     private Button mTimeButton;
+    private Button mReportButton;
     private CheckBox mSolvedCheckBox;
 
     @Override
@@ -124,6 +125,18 @@ public class CrimeFragment extends Fragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 mCrime.setSolved(isChecked);
 
+            }
+        });
+
+        mReportButton = (Button) v.findViewById(R.id.crime_report);
+        mReportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_TEXT, getReport());
+                i.putExtra(Intent.EXTRA_SUBJECT, R.string.crime_report_subject);
+                startActivity(i);
             }
         });
 

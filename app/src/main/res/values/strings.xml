@@ -17,7 +17,7 @@
     <string name="crime_report_text">Отправить отчет</string>
 
     <string name="crime_report">%1$s!
-    Совершено преступление %2$s. %3$s, и %4$s
+    Совершено преступление %2$s. %3$s, %4$s
   </string>
     <string name="crime_report_solved">Дело решено</string>
     <string name="crime_report_unsolved">Дело не решено</string>
