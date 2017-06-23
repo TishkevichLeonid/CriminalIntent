@@ -15,6 +15,16 @@
     <string name="new_crime_btn_list_empty">Новое преступление</string>
     <string name="crime_suspect_text">Выбрать подозреваемого</string>
     <string name="crime_report_text">Отправить отчет</string>
+
+    <string name="crime_report">%1$s!
+    Совершено преступление %2$s. %3$s, и %4$s
+  </string>
+    <string name="crime_report_solved">Дело решено</string>
+    <string name="crime_report_unsolved">Дело не решено</string>
+    <string name="crime_report_no_suspect">нет подозреваемого.</string>
+    <string name="crime_report_suspect">подозреваемый %s.</string>
+    <string name="crime_report_subject">CriminalIntent Crime Report</string>
+    <string name="send_report">Send crime report via</string>
     
     <plurals name="subtitle_plural">
         <item quantity="one">%1$s crime</item>
