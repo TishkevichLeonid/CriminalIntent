@@ -60,6 +60,7 @@ public class CrimeFragment extends Fragment {
     private Button mSuspectButton;
     private ImageButton mPhotoButton;
     private ImageView mPhotoView;
+    private ImageDialog mImageDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -200,6 +201,15 @@ public class CrimeFragment extends Fragment {
 
         mPhotoView = (ImageView) v.findViewById(R.id.crime_photo);
         updatePhotoView();
+        mImageDialog = new ImageDialog();
+        mPhotoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getFragmentManager();
+                mImageDialog.getImage(mPhotoFile.getPath(), getActivity());
+                new ImageDialog().show(fragmentManager, "newDialog");
+            }
+        });
 
         return v;
     }
