@@ -25,3 +25,7 @@
 ![Image alt](https://github.com/TishkevichLeonid/CriminalIntent/raw/master/screenshots/ViewPager.png)
 
 Данные о преступлениях хранятся в базе данный SQLite, фотографии преступлений находятся во внешнем хранилище.
+
+#### Так же реализован двухпанельный интерфейс для планшетов
+
+![Image alt](https://github.com/TishkevichLeonid/CriminalIntent/raw/master/screenshots/Tablet.png)
