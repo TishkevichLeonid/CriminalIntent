@@ -6,4 +6,4 @@
 
 #### На главном экране представлен список преступлений, реализованный с помощью RecyclerView 
 
-![Image alt](https://github.com/TishkevichLeonid/CriminalIntent/raw/master/screenshots/RecyclerView.jpg)
+![Image alt](https://github.com/TishkevichLeonid/CriminalIntent/raw/master/screenshots/RecyclerView1.jpg)
