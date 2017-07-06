@@ -5,3 +5,5 @@
 В приложении CriminalIntent пользователь создает запись о преступлении с заголовком, датой и фотографией. Также можно выбрать подозреваемого в списке контактов и отправить жалобу по электронной почте, опубликовать ее в Twitter, Facebook или другом приложении.
 
 #### На главном экране представлен список преступлений, реализованный с помощью RecyclerView
+
+![Image alt](https://github.com/TishkevichLeonid/CriminalIntent/raw/master/screenshots/RecyclerView.png)
